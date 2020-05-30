@@ -1,6 +1,5 @@
 import EventEmitter from "events";
 
-
 class surepassEsign extends EventEmitter {
   constructor() {
     super();
@@ -11,31 +10,31 @@ class surepassEsign extends EventEmitter {
     this.handleSuccess = this.handleSuccess.bind(this);
     this.checkForWindowStatus = this.checkForWindowStatus.bind(this);
     this.startCheckingWinStatus = this.startCheckingWinStatus.bind(this);
-    this.popupCenter = this.popupCenter.bind(this)
-    this.popup = false
-    this.defaultOptions = {height:850,width:450}
-    this.userCompletedSteps = false
+    this.popupCenter = this.popupCenter.bind(this);
+    this.popup = false;
+    this.defaultOptions = { height: 850, width: 450 };
+    this.userCompletedSteps = false;
   }
-  
+
   startCheckingWinStatus() {
-    const intervalFunction = this.checkForWindowStatus
-    this.handle = setInterval(intervalFunction,5000);
+    const intervalFunction = this.checkForWindowStatus;
+    this.handle = setInterval(intervalFunction, 5000);
   }
 
   checkForWindowStatus() {
-    const intervalFunction = this.handle
+    const intervalFunction = this.handle;
     if (this.popup.closed) {
       clearInterval(intervalFunction);
       if (!this.userCompletedSteps) {
         const message = {
           data: {
-            error: "POPUP_CLOSED"
+            error: "POPUP_CLOSED",
           },
-          status_code:433,
+          status_code: 433,
           message: "User closed the popup window before process completed",
-          success: false
-        }
-        this.emit("error",message);
+          success: false,
+        };
+        this.emit("error", message);
       }
     }
   }
@@ -46,7 +45,7 @@ class surepassEsign extends EventEmitter {
   handleSuccess(response) {
     this.userCompletedSteps = true;
     this.popup.close();
-    this.emit("success",response);
+    this.emit("success", response);
   }
 
   handleError(response) {
@@ -56,15 +55,15 @@ class surepassEsign extends EventEmitter {
   }
 
   EsignMessage(event) {
-    try{
-    const data = JSON.parse(event.data);
-    if (data.status === 200) {
-      this.handleSuccess(data);
-    } else {
-      this.handleError(data);
-    }}
-    catch{
-      console.log("")
+    try {
+      const data = JSON.parse(event.data);
+      if (data.status === 200) {
+        this.handleSuccess(data);
+      } else {
+        this.handleError(data);
+      }
+    } catch(err){
+      console.log("");
     }
   }
 
@@ -73,15 +72,25 @@ class surepassEsign extends EventEmitter {
     window.addEventListener("message", EsignMessage, false);
   }
 
-
   popupCenter(url, title, w, h) {
-    const left = (window.screen.width/2)-(w/2);
-    const top = (window.screen.height/2)-(h/2);
-    this.popup = window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left)
+    const left = window.screen.width / 2 - w / 2;
+    const top = window.screen.height / 2 - h / 2;
+    this.popup = window.open(
+      url,
+      title,
+      "toolbar=no, location=no, directories=no, status=no, menubar=no, copyhistory=no, width=" +
+        w +
+        ", height=" +
+        h +
+        ", top=" +
+        top +
+        ", left=" +
+        left
+    );
 
     // Puts focus on the newWindow
     if (window.focus) this.popup.focus();
-}
+  }
 
   openWindow(url, windowName, options) {
     const option = options ? options : this.defaultOptions;
@@ -91,17 +100,16 @@ class surepassEsign extends EventEmitter {
       } else {
         if (this.isMobile()) {
           try {
-            this.popup = window.open(url+"&mobile=true");
+            this.popup = window.open(url + "&mobile=true");
             this.bindMessageEvent();
-            this.startCheckingWinStatus()
+            this.startCheckingWinStatus();
           } catch (error) {
             this.emit("error", "Couldn't open new Window");
           }
         } else {
-
-          this.popupCenter(url, windowName,option.width,option.height);
+          this.popupCenter(url, windowName, option.width, option.height);
           this.bindMessageEvent();
-          this.startCheckingWinStatus()
+          this.startCheckingWinStatus();
         }
       }
     } else {
@@ -110,21 +118,19 @@ class surepassEsign extends EventEmitter {
   }
 }
 
-
-
-export default class Esign{
-  constructor(options){
-
-    this.Esign = new surepassEsign()
-    this.url = options.url
-    this.windowName = options.window_name
-    this.options = options.dimension
-
+export default class Esign {
+  constructor(options) {
+    this.Esign = new surepassEsign();
+    this.token = options.token;
+    this.windowName = options.window_name;
+    this.options = options.dimension;
   }
 
-  openWindow(onSuccess,onError){
-    this.Esign.openWindow(this.url,this.windowName,this.options)
-    this.Esign.on('error',(response) => onError(response))
-    this.Esign.on('success',(response) => onSuccess(response))
+  openWindow(onSuccess, onError) {
+    const token = this.token;
+    const url = `https://esign-client.surepass.io/?token=${token}`;
+    this.Esign.openWindow(this.url, this.windowName, this.options);
+    this.Esign.on("error", (response) => onError(response));
+    this.Esign.on("success", (response) => onSuccess(response));
   }
 }
