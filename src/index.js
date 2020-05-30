@@ -62,8 +62,8 @@ class surepassEsign extends EventEmitter {
       } else {
         this.handleError(data);
       }
-    } catch(err){
-      console.log("");
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -129,7 +129,7 @@ export default class Esign {
   openWindow(onSuccess, onError) {
     const token = this.token;
     const url = `https://esign-client.surepass.io/?token=${token}`;
-    this.Esign.openWindow(this.url, this.windowName, this.options);
+    this.Esign.openWindow(url, this.windowName, this.options);
     this.Esign.on("error", (response) => onError(response));
     this.Esign.on("success", (response) => onSuccess(response));
   }

@@ -1,11 +1,12 @@
 {
-  "name": "esign-init",
+  "name": "surepass-eSign",
   "version": "1.0.0",
-  "description": "Script to initialise the surepass esign web sdk",
+  "description": "Script to initialize the Surepass eSign web sdk",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel ./index.js --presets babel-preset-es2015 --out-dir lib"
+    "build": "babel src --presets babel-preset-es2015 --out-dir lib",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -14,8 +15,8 @@
   "keywords": [
     "node",
     "npm",
-    "surepass",
-    "esign"
+    "Surepass",
+    "eSign"
   ],
   "author": "Surepass",
   "license": "ISC",
