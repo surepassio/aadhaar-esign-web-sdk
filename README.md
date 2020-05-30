@@ -12,3 +12,10 @@ Surepass esign Web Sdk initializer
 
 ## Overview
 Surepass esign web sdk can be consumed in two ways. You can add it to your flow of esing and then expect a redirect at the url you passed while you were initialising the token or you can use a event driven approach where you can open it in a new tab(mobile devices and desktop) or in new window(desktop) and use callback function to move forward based on sucess or failure of esign. 
+
+# Screenshots
+![surepass esign.png](https://github.com/surepassio/aadhaar-esign-web-sdk/blob/master/surepass%20esign.png)
+## Getting started
+While 
+
+
