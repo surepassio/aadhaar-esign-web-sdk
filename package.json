@@ -1,0 +1,25 @@
+{
+  "name": "esign-init",
+  "version": "1.0.0",
+  "description": "Script to initialise the surepass esign web sdk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surepassio/aadhaar-esign-web-sdk.git"
+  },
+  "keywords": [
+    "node",
+    "npm",
+    "surepass",
+    "esign"
+  ],
+  "author": "Surepass",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/surepassio/aadhaar-esign-web-sdk/issues"
+  },
+  "homepage": "https://github.com/surepassio/aadhaar-esign-web-sdk#readme"
+}
