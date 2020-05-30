@@ -1,1 +1,3 @@
-export {default as Esign} from './lib'
+const Esign = require('./lib')
+
+module.exports = Esign

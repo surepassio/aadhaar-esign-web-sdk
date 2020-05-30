@@ -32,7 +32,7 @@ To use this you should not pass any redirect url while you initialise the token 
 ## Initializing Sdk
 To initialize the web sdk you need to include our supplementary package either as [npm package]() or as use our [cdn](https://) and then:
 ```
-import Esign from "./surepass-eSign"; //In case you are using npm
+import Esign from "./surepass-eSign"; //In case you are using package. Don't do this if you are using cdn
 function openeSign(onSuccess,onError) {
   const token = organisationtoken;
   const options = {
@@ -125,4 +125,4 @@ SUCCESS
 }
 ```
 Except for the sucess message all other will be called using onError function while the sucess message will be called using onSucess function.
->All these message are sent from the eSign window using Widow.postMessage function of javascript. So you can design your own utility code to get the message from the child window or tab that your application will open.
+>All these message are sent from the eSign window using Widow.postMessage function of javascript except the message of POPUP close message that we infer programmatically. So you can design your own utility code based on [src/index.js](https://github.com/surepassio/aadhaar-esign-web-sdk/blob/master/src/index.js) to get the message from the child window or tab that your application will open.
