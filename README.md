@@ -30,10 +30,14 @@ To use this method you need to initialize the token with a redirect url. Pass a 
 To use this you should not pass any redirect url while you initialize the token for the client. You can use our supplementary package or can make one yourself to initiate the eSign window with callback function that will return the status of eSign. i.e success or failure along with the message.
 
 ## Initializing SDK
+<<<<<<< HEAD
 To initialize the web SDK you need to include our supplementary package either as [npm package](https://www.npmjs.com/package/@surepass/esign) or as use our [cdn](https://)
 
 Example using npm package
 
+=======
+To initialize the web SDK you need to include our supplementary package either as [npm package](https://www.npmjs.com/package/@surepass/esign) or as use our [cdn](https://cdn.jsdelivr.net/gh/surepassio/aadhaar-esign-web-sdk@1.0.0/lib/index.min.js) and then:
+>>>>>>> 6adba9c08443868fb3a7f52f3be7f0905466583a
 ```
 import React from "react"; 
 import "./styles.css";
