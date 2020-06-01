@@ -1,4 +1,4 @@
-[![N|Solid](images/surepass.png)](https://surepass.io/e-sign/)
+[![N|Solid](images/surepass_esign.png)](https://surepass.io/e-sign/)
 
 SurePass eSign Web SDK lets you digitally sign documents easily using Aadhaar with basic and quick setup on your desired platform, be it mobile or web application.
 
