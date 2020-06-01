@@ -16,7 +16,7 @@ SurePass eSign Web SDK initializer
 SurePass eSign web SDK can be consumed in two ways. You can add it to your flow of eSign and then expect a redirect at the url you passed while you were initializing the token or you can use a event driven approach where you can open it in a new tab(mobile devices and desktop) or in new window(desktop) and use callback function to move forward based on success or failure of eSign. 
 
 ## Screenshots
-![surepass esign.png](https://github.com/surepassio/aadhaar-eSign-web-sdk/blob/master/surepass%20esign.png)
+![surepass esign.png](https://raw.githubusercontent.com/surepassio/aadhaar-eSign-web-sdk/master/surepass%20esign.png)
 ## Getting started
 There are two ways you can integrate the web SDK into your flow.
 - Using the redirect
@@ -30,22 +30,45 @@ To use this method you need to initialize the token with a redirect url. Pass a 
 To use this you should not pass any redirect url while you initialize the token for the client. You can use our supplementary package or can make one yourself to initiate the eSign window with callback function that will return the status of eSign. i.e success or failure along with the message.
 
 ## Initializing SDK
-To initialize the web SDK you need to include our supplementary package either as [npm package](https://www.npmjs.com/package/@surepass/esign) or as use our [cdn](https://) and then:
+To initialize the web SDK you need to include our supplementary package either as [npm package](https://www.npmjs.com/package/@surepass/esign) or as use our [cdn](https://)
+
+Example using npm package
+
 ```
-import SurePasseSign from "@surepass/esign"; //In case you are using npm package. Don't do this if you are using cdn
-function openEsign(onSuccess,onError) {
+import React from "react"; 
+import "./styles.css";
+import { OpenEsignPopUP } from "@surepass/esign";
+
+function openEsign(onSuccess, onError) {
   const token = 123;
   const options = {
     token,
     window_name: "Surepass",
     dimension: { width: "450", height: "850" }
   };
-  const esign = new SurePasseSign(
-    options
+  const esign = new OpenEsignPopUP(options);
+  esign.openWindow(onSuccess, onError);
+}
+
+function onSuccess(response) {
+  console.log("Response", response);
+}
+
+function onError(response) {
+  console.log("Error", response);
+}
+
+export default function App() {
+  return (
+    <div className="App">
+      <button onClick={() => openEsign(onSuccess, onError)}>Call</button>
+    </div>
   );
-  esign.openWindow(onSuccess,onError);
 }
 ```
+
+[![N|Edit beautiful-gates-5kgk6](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/beautiful-gates-5kgk6?fontsize=14&hidenavigation=1&theme=dark)
+
 This will open a new window in desktop and a new tab in mobile and will call onSuccess or onError depending on the status of eSign.
 ## Handling Callback
 We will return these responses based on status of eSign:

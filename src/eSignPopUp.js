@@ -118,7 +118,7 @@ class surepassEsign extends EventEmitter {
   }
 }
 
-export default class Esign {
+class EsignPopUpOpener {
   constructor(options) {
     this.Esign = new surepassEsign();
     this.token = options.token;
@@ -134,3 +134,6 @@ export default class Esign {
     this.Esign.on("success", (response) => onSuccess(response));
   }
 }
+
+export default EsignPopUpOpener
+export {EsignPopUpOpener as OpenEsignPopUP}
