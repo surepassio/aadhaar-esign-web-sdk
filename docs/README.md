@@ -330,4 +330,4 @@ Returns HTTP status of 200 OK, when the eSign process has been completed success
 }
 ```
 
-> All these messages are sent from the eSign window using `Widow.postMessage` function of javascript except the message of popup closure by user that we infer programmatically. So, you can design your own utility code based on [eSignPopUp.js](/src/eSignPopUp.js) to get the message from the child window or tab that your application will open.
+> All these messages are sent from the eSign window using `Widow.postMessage` function of javascript except the message of popup closure by user that we infer programmatically. So, you can design your own utility code based on [src/eSignPopUp.js](/src/eSignPopUp.js) to get the message from the child window or tab that your application will open.
