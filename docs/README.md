@@ -32,7 +32,7 @@ $ npm i @surepass/esign
 - **Directly embed the script tag in your application.**
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/surepassio/aadhaar-esign-web-sdk@1.0.10/lib/eSignPopUp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/surepassio/aadhaar-esign-web-sdk@1.0.12/lib/eSignPopUp.min.js"></script>
 ```
 
 
@@ -201,7 +201,7 @@ Returns HTTP status of 200 OK, when the eSign process has been completed success
 ```json
 {
       "data": {
-          "error": "NDLS_ERROR"
+          "error": "NSDL_ERROR"
       },
       "status_code": 501,
       "message": "error from ndls while signing document",
