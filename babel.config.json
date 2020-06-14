@@ -1,6 +1,0 @@
-{
-    "plugins": [
-        "@babel/plugin-proposal-optional-catch-binding"
-    ],
-    "presets": [ "es2015" ]
-}

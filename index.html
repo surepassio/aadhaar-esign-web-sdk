@@ -1,0 +1,38 @@
+<!-- For testing using script tag -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/eSignPopUp.min.js"></script>
+    <script>
+        const EsignPopUpOpener = window.eSignPopUp.default
+      function openEsign(onSuccess, onError) {
+        const token = 123;
+        const options = {
+          token,
+          window_name: "Surepass",
+          dimension: { width: "450", height: "850" },
+        };
+        const esign = new EsignPopUpOpener(options);
+        esign.openWindow(onSuccess, onError);
+      }
+
+      function onSuccess(response) {
+        console.log("Response", response);
+      }
+
+      function onError(response) {
+        console.log("Error", response);
+      }
+
+      function openPopUp(){
+          openEsign(onSuccess,onError)
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="openPopUp()">Open</button>
+  </body>
+</html>

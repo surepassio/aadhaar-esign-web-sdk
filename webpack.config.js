@@ -2,22 +2,11 @@ const path = require("path");
 
 module.exports = {
   mode: "production",
-  entry: "./src/eSignPopUp.js",
+  entry: "./src/eSignPopUp",
   output: {
     path: path.resolve(__dirname, "lib"),
-    filename: "eSignPopUp.js",
+    filename: "eSignPopUp.min.js",
     library: "eSignPopUp",
-    libraryTarget: "var",
-  },
-  externals: {
-    events: {
-      commonjs: "events",
-      commonjs2: "events",
-      amd: "events",
-      root: "EventEmitter",
-    },
-  },
-  optimization: {
-    runtimeChunk: true,
+    libraryTarget: "umd",
   },
 };
