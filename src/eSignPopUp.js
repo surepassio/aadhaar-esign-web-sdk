@@ -57,7 +57,7 @@ class surepassEsign extends EventEmitter {
   EsignMessage(event) {
     try {
       const data = JSON.parse(event.data);
-      if (data.status === 200) {
+      if (data.status_code === 200) {
         this.handleSuccess(data);
       } else {
         this.handleError(data);
