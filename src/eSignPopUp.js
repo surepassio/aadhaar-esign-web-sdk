@@ -44,7 +44,6 @@ class surepassEsign extends EventEmitter {
   }
   handleSuccess(response) {
     this.userCompletedSteps = true;
-    this.popup.close();
     this.emit("success", response);
   }
 
