@@ -12,7 +12,15 @@ class surepassEsign extends EventEmitter {
     this.startCheckingWinStatus = this.startCheckingWinStatus.bind(this);
     this.popupCenter = this.popupCenter.bind(this);
     this.popup = false;
-    this.defaultOptions = { height: 850, width: 450 };
+    this.defaultOptions = {
+      dimension: { height: 850, width: 450 },
+      toolbar: "no",
+      location: "no",
+      directories: "no",
+      status: "no",
+      menubar: "no",
+      copyhistory: "no",
+    };
     this.userCompletedSteps = false;
   }
 
@@ -56,6 +64,7 @@ class surepassEsign extends EventEmitter {
   EsignMessage(event) {
     try {
       const data = JSON.parse(event.data);
+      console.log(data);
       if (data.status_code === 200) {
         this.handleSuccess(data);
       } else {
@@ -71,28 +80,22 @@ class surepassEsign extends EventEmitter {
     window.addEventListener("message", EsignMessage, false);
   }
 
-  popupCenter(url, title, w, h) {
-    const left = window.screen.width / 2 - w / 2;
-    const top = window.screen.height / 2 - h / 2;
+  popupCenter(url, parameters) {
+    const left = window.screen.width / 2 - parameters.dimension.width / 2;
+    const top = window.screen.height / 2 - parameters.dimension.height / 2;
     this.popup = window.open(
       url,
-      title,
-      "toolbar=no, location=no, directories=no, status=no, menubar=no, copyhistory=no, width=" +
-        w +
-        ", height=" +
-        h +
-        ", top=" +
-        top +
-        ", left=" +
-        left
+      parameters.window_name,
+      `toolbar=${parameters.toolbar},location=${parameters.location},directories=${parameters.directories},
+      status=${parameters.status},menubar=${parameters.menubar},copyhistory=${parameters.copyhistory},
+      width=${parameters.dimension.width},height=${parameters.dimension.height},top=${top},left=${left}`
     );
-
     // Puts focus on the newWindow
     if (window.focus) this.popup.focus();
   }
 
-  openWindow(url, windowName, options) {
-    const option = options ? options : this.defaultOptions;
+  openWindow(url, options) {
+    const parameters = { ...this.defaultOptions, ...options }; //options ? options : this.defaultOptions;
     if (!this.popup && !this.popup.closed) {
       if (!url) {
         this.emit("error", "Please provide a valid url");
@@ -106,7 +109,8 @@ class surepassEsign extends EventEmitter {
             this.emit("error", "Couldn't open new Window");
           }
         } else {
-          this.popupCenter(url, windowName, option.width, option.height);
+          this.popupCenter(url, parameters);
+
           this.bindMessageEvent();
           this.startCheckingWinStatus();
         }
@@ -121,18 +125,18 @@ class EsignPopUpOpener {
   constructor(options) {
     this.Esign = new surepassEsign();
     this.token = options.token;
-    this.windowName = options.window_name;
-    this.options = options.dimension;
+    this.options = options;
   }
 
   openWindow(onSuccess, onError) {
     const token = this.token;
-    const url = `https://esign-client.surepass.io/?token=${token}`;
-    this.Esign.openWindow(url, this.windowName, this.options);
+    const options = this.options;
+    const url = `https://esign-client.surepass.io/?token=${token}&window_name=${options.window_name}`;
+    this.Esign.openWindow(url, options);
     this.Esign.on("error", (response) => onError(response));
     this.Esign.on("success", (response) => onSuccess(response));
   }
 }
 
-export default EsignPopUpOpener
-export {EsignPopUpOpener as OpenEsignPopUP}
+export default EsignPopUpOpener;
+export { EsignPopUpOpener as OpenEsignPopUP };
