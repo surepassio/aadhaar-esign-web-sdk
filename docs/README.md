@@ -41,7 +41,7 @@ $ npm i @surepass/esign
 - **Directly embed the script tag in your application.**
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/surepassio/aadhaar-esign-web-sdk@1.1.2/lib/eSignPopUp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/surepassio/aadhaar-esign-web-sdk@1.1.3/lib/eSignPopUp.min.js"></script>
 ```
 
 ## Getting Started
