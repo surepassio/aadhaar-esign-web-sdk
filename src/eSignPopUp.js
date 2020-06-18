@@ -131,7 +131,7 @@ class EsignPopUpOpener {
   openWindow(onSuccess, onError) {
     const token = this.token;
     const options = this.options;
-    const url = `https://esign-client.surepass.io/?token=${token}&window_name=${options.window_name}`;
+    const url = `https://esign-client.surepass.io/?token=${token}&window_name=${options.window_name?options.window_name:"SurePass eSign"}`;
     this.Esign.openWindow(url, options);
     this.Esign.on("error", (response) => onError(response));
     this.Esign.on("success", (response) => onSuccess(response));
