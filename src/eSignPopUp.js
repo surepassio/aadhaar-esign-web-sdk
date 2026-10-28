@@ -96,7 +96,10 @@ class surepassEsign extends EventEmitter {
 
   openWindow(url, options) {
     const parameters = { ...this.defaultOptions, ...options }; //options ? options : this.defaultOptions;
-    if (!this.popup && !this.popup.closed) {
+    if (!this.popup || this.popup.closed) {
+      // a new session: stop watching the previous popup and forget its outcome
+      clearInterval(this.handle);
+      this.userCompletedSteps = false;
       if (!url) {
         this.emit("error", "Please provide a valid url");
       } else {
@@ -132,6 +135,9 @@ class EsignPopUpOpener {
     const token = this.token;
     const options = this.options;
     const url = `https://sandbox.esign.surepass.io/?token=${token}&window_name=${options.window_name?options.window_name:"SurePass eSign"}`;
+    // replace the callbacks of an earlier call instead of adding a second set
+    this.Esign.removeAllListeners("error");
+    this.Esign.removeAllListeners("success");
     this.Esign.openWindow(url, options);
     this.Esign.on("error", (response) => onError(response));
     this.Esign.on("success", (response) => onSuccess(response));
